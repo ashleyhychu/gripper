@@ -1,25 +1,23 @@
 #include <Servo.h>
 
 Servo servo1; 
-
 void setup() {
-
+  // put your setup code here, to run once:
   pinMode(1,OUTPUT);
   servo1.attach(12); //analog pin 0 
   //servo1.setMaximumPulse(2000);
   //servo1.setMinimumPulse(700);
 
  
-  Serial.begin(115200);
-  Serial.println("Ready");
-
+  //Serial.begin(115200);
+  //Serial.println("Ready");
 }
 
 void loop() {
-
+  // put your main code here, to run repeatedly:
   static int v = 0;
   int deg = 90;
-  if ( Serial.available()) 
+ /* if ( Serial.available()) 
   {
     char ch = Serial.read();
 
@@ -40,8 +38,11 @@ void loop() {
         break;
     }    
     
-  }
-    servo1.write(deg);
+  }*/
+    servo1.write(30);
+    delay(500);
+    servo1.write(50);
 }
+
   //Servo::refresh();
  
