@@ -4,7 +4,8 @@ Servo servo1;
 void setup() {
   // put your setup code here, to run once:
   pinMode(1,OUTPUT);
-  servo1.attach(12,1500,1900); //analog pin 0 
+  //servo1.attach(13,1650,1900); //analog pin 0 
+  servo1.attach(13);
   //servo1.setMaximumPulse(1900);
   //servo1.setMinimumPulse(1500);
 
@@ -16,7 +17,9 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   static int v = 0;
-  static int deg = 90;
+  static int deg = 2000;
+  static int targetdeg = 2000;
+  static int flag = 0;
   if ( Serial.available()) 
   {
     char ch = Serial.read();
@@ -26,25 +29,67 @@ void loop() {
         v = v * 10 + ch - '0';
         break;
       case 'a':
-          deg = 90;
-        break;
-      case 'd':
-          deg = 120;
+          targetdeg = 1500;
         break;
       case 's':
-          deg = v;
+          targetdeg = 1700;
+          break;
+      case 'd':
+          targetdeg = 1900;
+        break;
+      case 'f':
+          targetdeg = 2000;
+          break;
+      case 'g':
+          targetdeg = 2100;
+          break;
+      case 'h':
+          targetdeg = 2200;
+          break;
+      case 'j':
+          targetdeg = 2300;
+          break;
+      case 'k':
+          targetdeg = 2400;
+          break;
+      case 'l':
+          targetdeg = 2500;
+          break;
+      case 'z':
+          targetdeg = v;
           v = 0;
           break;
+      
       default:
         break;
-    }    
-    
+    }     
   }
-    servo1.write(deg);
-    delay(500);
+
+
+    if(deg > targetdeg)
+      deg -= 30;
+    else
+      deg += 30;
+      
+    if(deg < 1500)
+      deg = 1500;
+    else if (deg > 2500)
+      deg = 2500;
+    else
+      deg = deg;
+  
+    //servo1.write(targetdeg);
+    servo1.writeMicroseconds(deg);     //stop
+    //String stringTarget =  String(targetdeg);
+    //String stringDeg = String(deg);
+    //Serial.write("target:");
+    //Serial.write(targetdeg);
+    //Serial.write(" deg:");
+    //Serial.write(deg);
+    
+  delay(15);
     //servo1.write(90);
     //delay(500);
 }
 
   //Servo::refresh();
- 
